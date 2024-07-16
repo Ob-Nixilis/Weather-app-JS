@@ -3,10 +3,11 @@ const search = document.querySelector(".search-box button");
 const weatherBox = document.querySelector(".weather-box");
 const weatherDetails = document.querySelector(".weather-details");
 const error404 = document.querySelector(".not-found");
+const searchInput = document.querySelector(".search-box input");
 
-search.addEventListener("click", () => {
+const getWeather = () => {
   const APIKey = "f9172e46304a8be0254100d0be4a8e14";
-  const city = document.querySelector(".search-box input").value;
+  const city = searchInput.value;
 
   if (city === "") return;
 
@@ -100,6 +101,15 @@ search.addEventListener("click", () => {
       errorText.innerHTML = 'There has been a problem fetching the weather data. Please try again later.';
     }
   });
+};
+
+search.addEventListener("click", getWeather);
+
+// Ajout de l'événement pour la touche "Entrée"
+searchInput.addEventListener("keydown", (event) => {
+  if (event.key === "Enter") {
+    getWeather();
+  }
 });
 
 
