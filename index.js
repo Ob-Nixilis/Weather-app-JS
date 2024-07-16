@@ -24,6 +24,13 @@ search.addEventListener("click", () => {
       weatherDetails.style.display = 'none';
       error404.style.display = 'block';
       error404.classList.add('fadeIn');
+
+      // Mettre à jour l'image 404 et le texte
+      const errorImage = error404.querySelector("img");
+      const errorText = error404.querySelector("p");
+      errorImage.src = 'images/404.png';
+      errorText.innerHTML = 'Oops! Invalid location :/';
+      
       return;
     }
 
@@ -69,9 +76,17 @@ search.addEventListener("click", () => {
   })
   .catch(error => {
     console.error('There has been a problem with your fetch operation:', error);
+    container.style.height = '400px';
+    weatherBox.style.display = 'none';
+    weatherDetails.style.display = 'none';
     error404.style.display = 'block';
     error404.classList.add('fadeIn');
-    error404.innerHTML = 'There has been a problem fetching the weather data. Please try again later.';
+
+    // Mettre à jour l'image 404 et le texte
+    const errorImage = error404.querySelector("img");
+    const errorText = error404.querySelector("p");
+    errorImage.src = 'images/404.png';
+    errorText.innerHTML = 'There has been a problem fetching the weather data. Please try again later.';
   });
 });
 
