@@ -69,6 +69,10 @@ search.addEventListener("click", () => {
   })
   .catch(error => {
     console.error('There has been a problem with your fetch operation:', error);
+    error404.style.display = 'block';
+    error404.classList.add('fadeIn');
+    error404.innerHTML = 'There has been a problem fetching the weather data. Please try again later.';
   });
 });
+
 
