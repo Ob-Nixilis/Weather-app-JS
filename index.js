@@ -50,6 +50,8 @@ const getWeather = () => {
     const humidity = document.querySelector(".weather-details .humidity span");
     const wind = document.querySelector(".weather-details .wind span");
 
+    console.log('Weather condition:', json.weather[0].main); // Ajoutez cette ligne pour vérifier la valeur
+
     switch (json.weather[0].main) {
       case 'Clear':
         image.src = 'images/clear.png';
@@ -64,10 +66,18 @@ const getWeather = () => {
         image.src = 'images/cloud.png';
         break;
       case 'Haze':
+      case 'Mist':
+      case 'Fog':
+      case 'Smoke':
+      case 'Dust':
+      case 'Sand':
+      case 'Ash':
+      case 'Squall':
+      case 'Tornado':
         image.src = 'images/mist.png';
         break;
       default:
-        image.src = '';
+        image.src = ''; // Mettre une image par défaut si aucune condition ne correspond
     }
 
     temperature.innerHTML = `${parseInt(json.main.temp)}<span>°C</span>`;
@@ -96,9 +106,6 @@ const getWeather = () => {
     if (error.message === '404') {
       errorImage.src = 'images/404.png';
       errorText.innerHTML = 'Oops! Invalid location :/';
-    } else {
-      errorImage.src = 'images/error.png'; // Une autre image pour les erreurs générales
-      errorText.innerHTML = 'There has been a problem fetching the weather data. Please try again later.';
     }
   });
 };
@@ -111,6 +118,4 @@ searchInput.addEventListener("keydown", (event) => {
     getWeather();
   }
 });
-
-
 
