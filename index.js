@@ -13,7 +13,13 @@ search.addEventListener("click", () => {
   fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${APIKey}`)
   .then(response => {
     if (!response.ok) {
-      throw new Error('Network response was not ok');
+      if (response.status === 404) {
+        return response.json().then(json => {
+          throw new Error('404');
+        });
+      } else {
+        throw new Error('Network response was not ok');
+      }
     }
     return response.json();
   })
@@ -85,9 +91,16 @@ search.addEventListener("click", () => {
     // Mettre à jour l'image 404 et le texte
     const errorImage = error404.querySelector("img");
     const errorText = error404.querySelector("p");
-    errorImage.src = 'images/404.png';
-    errorText.innerHTML = 'There has been a problem fetching the weather data. Please try again later.';
+
+    if (error.message === '404') {
+      errorImage.src = 'images/404.png';
+      errorText.innerHTML = 'Oops! Invalid location :/';
+    } else {
+      errorImage.src = 'images/error.png'; // Une autre image pour les erreurs générales
+      errorText.innerHTML = 'There has been a problem fetching the weather data. Please try again later.';
+    }
   });
 });
+
 
 
